@@ -1,0 +1,87 @@
+DateTable =
+VAR StartDate = DATE(2020,1,1)
+VAR EndDate   = TODAY() + 365
+
+RETURN
+ADDCOLUMNS(
+    CALENDAR(StartDate, EndDate),
+
+    //-------------------------------------
+    -- YEAR
+    //-------------------------------------
+
+    "Year", YEAR([Date]),
+
+    //-------------------------------------
+    -- MONTH
+    //-------------------------------------
+
+    "MonthNumber", MONTH([Date]),
+    "MonthName", FORMAT([Date], "MMMM"),
+    "MonthShort", FORMAT([Date], "MMM"),
+    "MonthYear", FORMAT([Date], "YYYY-MM"),
+
+    "YearMonthKey",
+        YEAR([Date]) * 100 + MONTH([Date]),
+
+    //-------------------------------------
+    -- QUARTER
+    //-------------------------------------
+
+    "Quarter", "Q" & FORMAT([Date], "Q"),
+
+    //-------------------------------------
+    -- WEEKDAY
+    //-------------------------------------
+
+    "WeekDayNumber", WEEKDAY([Date],2),
+    "WeekDayName", FORMAT([Date],"dddd"),
+
+    "IsWeekend",
+        WEEKDAY([Date],2) >= 6,
+
+    //-------------------------------------
+    -- HOLIDAY PLACEHOLDER
+    //-------------------------------------
+
+    "IsHoliday",
+        FALSE(),
+
+    "IsBusinessDay",
+        IF(
+            WEEKDAY([Date],2) <= 5
+            && NOT(FALSE()),
+            TRUE(),
+            FALSE()
+        ),
+
+    //-------------------------------------
+    -- WEEK
+    //-------------------------------------
+
+    "WeekNumber",
+        WEEKNUM([Date],2),
+
+    "WeekYear",
+        YEAR([Date] - WEEKDAY([Date],2) + 4),
+
+    "WeekYearKey",
+        YEAR([Date] - WEEKDAY([Date],2) + 4) * 100
+        + WEEKNUM([Date],2),
+
+    "WeekLabel",
+        "W"
+        & FORMAT(WEEKNUM([Date],2),"00"),
+
+    //-------------------------------------
+    -- WEEK OF MONTH
+    //-------------------------------------
+
+    "WeekOfMonth",
+        INT((DAY([Date]) - 1)/7) + 1,
+
+    "WeekOfMonthLabel",
+        FORMAT([Date],"MMM")
+        & " W"
+        & (INT((DAY([Date]) - 1)/7) + 1)
+)
