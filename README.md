@@ -1,183 +1,214 @@
-# 💰 Debt Collection Analytics BI
+💰 Debt Collection Analytics — Data Engineering & BI Project
 
-A complete **Data Analytics & Business Intelligence project** focused on **debt collection performance**, combining SQL, Power BI, and data modeling to deliver actionable insights for operational and executive decision-making.
+End-to-end data analytics architecture designed for debt collection operations, focused on building a reliable, scalable, and audit-ready analytical layer.
 
----
+📊 Overview
 
-## 📊 Overview
+This project addresses a common problem in event-driven operational systems: inconsistent KPIs caused by poor data modeling and lack of defined granularity.
 
-This project was designed to analyze and optimize **debt collection operations**, providing full visibility into:
+The solution restructures the analytical layer to ensure:
 
-* 📞 Contact performance (Dialer vs Manual vs Digital)
-* 🤝 RPC (Right Party Contact) and CPC metrics
-* 💸 Payments and PTP (Promise to Pay) conversion
-* 🗺️ Geographic distribution of collections (UF level)
-* 🏢 Company-level performance analysis
-* 👨‍💼 Operator productivity and attendance tracking
+Clear event separation
 
-The solution follows a **modern BI architecture**, separating data ingestion, transformation, and semantic layers.
+Controlled cardinality (1:N)
 
----
+Elimination of many-to-many distortions
 
-## 🏗️ Architecture
+Full traceability from KPI to source event
 
-```text
-SQL Server (Raw Data)
+It enables accurate analysis of:
+
+Contact performance (Dialer, Manual, Digital)
+
+RPC (Right Party Contact) and CPC metrics
+
+PTP (Promise to Pay) generation and conversion
+
+Payment behavior and recovery efficiency
+
+Operator productivity and attendance
+
+Portfolio and company-level performance
+
+🏗️ Architecture
+SQL Server (Raw / Operational Data)
         │
         ▼
-SQL Layer (Fact & Dimensions)
+SQL Layer (Fact & Dimension Modeling - T-SQL)
         │
         ▼
-Power Query (Data Transformation)
+Power Query (Transformation Layer)
         │
         ▼
-DAX (Business Logic & Metrics)
+DAX (Semantic Layer & Metrics)
         │
         ▼
-Power BI Dashboard (Visualization)
-```
+Power BI (Visualization Layer)
+⭐ Data Modeling Approach
 
----
+The model follows a star schema architecture, designed around event-driven domains.
 
-## ⭐ Data Model (Star Schema)
+📌 Fact Tables (Event-Based)
 
-![Star Schema](data-model/star_schema.png)
+fact_dialer → Call attempts (granularity: call attempt)
 
-The project uses a **star schema model**, ensuring scalability, performance, and analytical flexibility.
+fact_contacts → CRM contact events
 
-### 📌 Fact Tables
+fact_ptp → Promise-to-pay events
 
-* `fact_dialer` → Dialer call attempts
-* `fact_contacts` → Unified contact interactions (manual + digital + dialer)
-* `fact_ptp` → Promise to Pay events
-* `fact_ptp_enriched` → PTP with payment and business logic
-* `fact_payments` → Financial transactions
+fact_ptp_enriched → PTP with payment linkage
 
-### 📌 Dimension Tables
+fact_payments → Financial transactions
 
-* `dim_cases` → Contract-level data
-* `dim_operator` → Operator information
-* `dim_client` → Client/company mapping
-* `dim_date` → Calendar and time intelligence
+Each fact table has a well-defined grain, avoiding metric distortion.
 
----
+📌 Dimension Tables (Conformed)
 
-## 📈 Key Metrics
+dim_cases → Contract-level entity
 
-The project implements key KPIs used in professional collection operations:
+dim_operator → Operator dimension (shared across facts)
 
-* **CPC (Contact per Call)** → Qualified contact rate
-* **RPC (Right Party Contact)** → Effective contact with debtor
-* **PTP Conversion Rate** → Contacts that generate payment promises
-* **Paid / Contacts**
-* **Paid / RPC**
-* **Collection Efficiency by DPD**
-* **Operator Productivity**
-* **Attendance & Absenteeism**
+dim_client → Client/company structure
 
----
+dim_date → Time intelligence
 
-## 📊 Dashboard
+Dimensions are conformed and reusable, ensuring consistency across domains.
 
-![Executive Dashboard](data-model/executive_dashboard.png)
+🧠 Key Engineering Decisions
 
-The dashboard provides:
+Explicit granularity definition per fact
 
-* 📍 **Geographic view** (Paid by UF)
-* 🥧 **Company contribution analysis**
-* 📊 **Paid vs Not Paid comparison**
-* 📅 Time-based filtering (Month / Year)
-* 🏢 Company-level segmentation
+Removal of many-to-many relationships
 
----
+Controlled joins between operational and financial domains
 
-## ⚙️ Technologies Used
+Use of ROW_NUMBER() for deterministic deduplication
 
-* **SQL Server** → Data extraction and modeling
-* **T-SQL** → Fact and dimension creation
-* **Power Query (M)** → Data transformation layer
-* **DAX** → Business logic and KPI calculations
-* **Power BI** → Data visualization
-* **Star Schema Modeling** → Data warehouse design
+Modular transformations using CTEs
 
----
+Centralization of business logic in the data layer (SQL)
 
-## 🧠 Key Features
+Temporal association between calls and PTPs
 
-* ✔ Separation of **Dialer, Manual, and Digital channels**
-* ✔ Temporal association between **calls and PTPs**
-* ✔ Advanced **business logic for RPC and CPC**
-* ✔ Operator-level performance and attendance tracking
-* ✔ Scalable and reusable **data model architecture**
+Separation of event domains (Dialer, Contact, Payment, PTP)
 
----
+📈 Key Metrics
 
-## 📂 Repository Structure
+CPC (Contact per Call)
 
-```text
+RPC (Right Party Contact)
+
+PTP Conversion Rate
+
+Paid / RPC
+
+Paid / Contacts
+
+Collection Efficiency by DPD
+
+Operator Productivity
+
+Attendance & Absenteeism
+
+All metrics are:
+
+✔ Traceable to source events
+
+✔ Based on consistent grain
+
+✔ Free from duplication bias
+
+📊 Dashboard
+
+The dashboard supports:
+
+Executive (Revenue, Portfolio Performance)
+
+Managerial (Conversion, Efficiency)
+
+Operational (Calls, Contacts, Productivity)
+
+📚 Data Governance
+
+To ensure reliability and maintainability:
+
+📐 ERD (Entity Relationship Diagram) documenting relationships and cardinality
+
+📖 Data Dictionary defining:
+
+Fact granularity
+
+KPI definitions
+
+Business rules
+
+This reduces ambiguity and improves scalability of the model.
+
+⚙️ Performance & Scalability
+
+Dynamic date filtering
+
+Rolling windows for high-volume data (e.g., dialer)
+
+Pre-aggregations at SQL layer
+
+Use of COUNT_BIG and analytical functions
+
+Optimized queries for large datasets
+
+⚙️ Technologies
+
+SQL Server
+
+T-SQL (CTEs, Window Functions)
+
+Power Query (M)
+
+DAX
+
+Power BI
+
+Dimensional Modeling (Star Schema)
+
+📂 Repository Structure
 .
 ├── dax/
-│   └── dim_date.dax
-│
 ├── powerquery/
-│   ├── cc_operator_activity.m
-│   ├── dim_operators_powerquery.m
-│   └── fact_operator_presence.m
-│
 ├── sql/
-│   ├── dim_cases.sql
-│   ├── dim_client.sql
-│   ├── fact_dialer.sql
-│   ├── fact_payments.sql
-│   ├── fact_ptp.sql
-│   ├── fact_ptp_enriched.sql
-│   └── fact_contacts.sql
-│
 ├── data-model/
 │   ├── star_schema.png
 │   └── executive_dashboard.png
-```
+🎯 Purpose
 
----
+This project demonstrates:
 
-## 🎯 Purpose
+Real-world data engineering practices
 
-This project aims to:
+Design of a production-grade analytical model
 
-* Demonstrate **real-world data engineering and BI skills**
-* Build a **production-level analytics model**
-* Showcase **business understanding in debt collection operations**
-* Provide a **scalable architecture for data-driven decision making**
+Strong alignment between business logic and data architecture
 
----
+Ability to build scalable and auditable data solutions
 
-## 👨‍💻 Author
+🚀 Next Steps
 
-**Paulo Potter Marchi**
-Data Analyst transitioning into **Data Engineering**
+Cloud migration (AWS / Azure)
 
-Skills:
+Data orchestration (Airflow)
 
-* SQL
-* Data Modeling
-* ETL / ELT
-* Python
-* Power BI
-* Data Warehousing
+Incremental loads & partitioning
 
----
+Real-time pipeline exploration
 
-## 🚀 Next Steps
+Forecasting models
 
-Planned improvements:
+👨‍💻 Author
 
-* Cloud integration (AWS / Azure)
-* Orchestration with Apache Airflow
-* Real-time data pipelines
-* Advanced forecasting models
+Paulo Potter Marchi
+Data Analyst → Data Engineer
 
----
+⭐ Final Note
 
-## ⭐ If you liked this project
+This project reinforces a key principle:
 
-Feel free to connect and follow my journey into Data Engineering!
+Reliable metrics come from correct data modeling — not from dashboards.
