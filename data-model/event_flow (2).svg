@@ -1,0 +1,140 @@
+<svg width="680" height="420" viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #ffffff;">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+    .th { font-size: 14px; font-weight: 600; fill: #0C447C; }
+    .ts { font-size: 12px; font-weight: 400; fill: #185FA5; }
+    .th-amber { font-size: 14px; font-weight: 600; fill: #633806; }
+    .ts-amber { font-size: 12px; font-weight: 400; fill: #854F0B; }
+    .th-green { font-size: 14px; font-weight: 600; fill: #27500A; }
+    .ts-green { font-size: 12px; font-weight: 400; fill: #3B6D11; }
+    .th-gray { font-size: 14px; font-weight: 600; fill: #444441; }
+    .ts-gray { font-size: 12px; font-weight: 400; fill: #5F5E5A; }
+    .ts-join { font-size: 11px; font-weight: 400; fill: #73726C; }
+    .ts-label { font-size: 11px; font-weight: 500; fill: #888780; letter-spacing: 0.04em; text-transform: uppercase; }
+    .arr { stroke: #B4B2A9; stroke-width: 1.5; fill: none; }
+    .arr-vert { stroke: #B4B2A9; stroke-width: 1.5; fill: none; }
+    .sep { stroke: #D3D1C7; stroke-width: 0.5; }
+  </style>
+</defs>
+
+<!-- ─── EVENT BLOCKS ─────────────────────────────────────────── -->
+
+<!-- Dialer (blue) -->
+<rect x="28" y="35" width="130" height="56" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="93" y="58" text-anchor="middle" dominant-baseline="central">Dialer</text>
+<text class="ts" x="93" y="78" text-anchor="middle" dominant-baseline="central">Call attempt</text>
+
+<!-- Contact (blue) -->
+<rect x="193" y="35" width="130" height="56" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="258" y="58" text-anchor="middle" dominant-baseline="central">Contact</text>
+<text class="ts" x="258" y="78" text-anchor="middle" dominant-baseline="central">CRM interaction</text>
+
+<!-- PTP (amber) -->
+<rect x="358" y="35" width="130" height="56" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text class="th-amber" x="423" y="58" text-anchor="middle" dominant-baseline="central">PTP</text>
+<text class="ts-amber" x="423" y="78" text-anchor="middle" dominant-baseline="central">Promise to pay</text>
+
+<!-- Payment (green) -->
+<rect x="523" y="35" width="130" height="56" rx="8" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+<text class="th-green" x="588" y="58" text-anchor="middle" dominant-baseline="central">Payment</text>
+<text class="ts-green" x="588" y="78" text-anchor="middle" dominant-baseline="central">Financial tx</text>
+
+<!-- ─── HORIZONTAL ARROWS + JOIN LABELS ─────────────────────── -->
+
+<line x1="158" y1="63" x2="191" y2="63" class="arr" marker-end="url(#arrow)"/>
+<text class="ts-join" x="175" y="79" text-anchor="middle">contact_id</text>
+
+<line x1="323" y1="63" x2="356" y2="63" class="arr" marker-end="url(#arrow)"/>
+<text class="ts-join" x="339" y="73" text-anchor="middle">case_id</text>
+<text class="ts-join" x="339" y="85" text-anchor="middle">+ time</text>
+
+<line x1="488" y1="63" x2="521" y2="63" class="arr" marker-end="url(#arrow)"/>
+<text class="ts-join" x="505" y="79" text-anchor="middle">ref_number</text>
+
+<!-- ─── VERTICAL DOWN-ARROWS ─────────────────────────────────── -->
+<line x1="93" y1="91" x2="93" y2="113" class="arr-vert" marker-end="url(#arrow)"/>
+<line x1="258" y1="91" x2="258" y2="113" class="arr-vert" marker-end="url(#arrow)"/>
+<line x1="423" y1="91" x2="423" y2="113" class="arr-vert" marker-end="url(#arrow)"/>
+<line x1="588" y1="91" x2="588" y2="113" class="arr-vert" marker-end="url(#arrow)"/>
+
+<!-- ─── BUSINESS RULE CARDS ──────────────────────────────────── -->
+
+<!-- Dialer rules -->
+<rect x="28" y="115" width="130" height="100" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="93" y="133" text-anchor="middle" dominant-baseline="central">Key fields</text>
+<text class="ts" x="93" y="151" text-anchor="middle">uniqueid</text>
+<text class="ts" x="93" y="167" text-anchor="middle">billsec &gt; 0: ans.</text>
+<text class="ts" x="93" y="183" text-anchor="middle">HUMAN / BOT</text>
+<text class="ts" x="93" y="199" text-anchor="middle">NO ANSWER</text>
+
+<!-- Contact rules -->
+<rect x="193" y="115" width="130" height="100" rx="6" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text class="th" x="258" y="133" text-anchor="middle" dominant-baseline="central">Key fields</text>
+<text class="ts" x="258" y="151" text-anchor="middle">contact_id</text>
+<text class="ts" x="258" y="167" text-anchor="middle">RPC flag</text>
+<text class="ts" x="258" y="183" text-anchor="middle">CPC metric</text>
+<text class="ts" x="258" y="199" text-anchor="middle">contact attrs</text>
+
+<!-- PTP rules -->
+<rect x="358" y="115" width="130" height="100" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text class="th-amber" x="423" y="133" text-anchor="middle" dominant-baseline="central">Key fields</text>
+<text class="ts-amber" x="423" y="151" text-anchor="middle">ref_number (key)</text>
+<text class="ts-amber" x="423" y="167" text-anchor="middle">promise value</text>
+<text class="ts-amber" x="423" y="183" text-anchor="middle">promise date</text>
+<text class="ts-amber" x="423" y="199" text-anchor="middle">dedup per ref</text>
+
+<!-- Payment rules -->
+<rect x="523" y="115" width="130" height="100" rx="6" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+<text class="th-green" x="588" y="133" text-anchor="middle" dominant-baseline="central">Key fields</text>
+<text class="ts-green" x="588" y="151" text-anchor="middle">payment_id</text>
+<text class="ts-green" x="588" y="167" text-anchor="middle">paid amount</text>
+<text class="ts-green" x="588" y="183" text-anchor="middle">payment date</text>
+<text class="ts-green" x="588" y="199" text-anchor="middle">financial domain</text>
+
+<!-- ─── KPI ORIGIN ────────────────────────────────────────────── -->
+<line x1="28" y1="226" x2="652" y2="226" class="sep"/>
+<text class="ts-label" x="20" y="241" text-anchor="start">KPI origin</text>
+<text class="ts-gray" x="93" y="253" text-anchor="middle">CPC rate</text>
+<text class="ts-gray" x="258" y="253" text-anchor="middle">RPC rate</text>
+<text class="ts-gray" x="423" y="253" text-anchor="middle">PTP rate</text>
+<text class="ts-gray" x="588" y="247" text-anchor="middle">Paid / RPC</text>
+<text class="ts-gray" x="588" y="261" text-anchor="middle">Recovery</text>
+
+<!-- ─── ARCHITECTURE DIFFERENTIATORS ─────────────────────────── -->
+<line x1="28" y1="278" x2="652" y2="278" class="sep"/>
+<text class="ts-label" x="340" y="294" text-anchor="middle">Architecture differentiators</text>
+
+<rect x="28" y="303" width="130" height="44" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<text class="th-gray" x="93" y="319" text-anchor="middle" dominant-baseline="central">Event-based</text>
+<text class="ts-gray" x="93" y="335" text-anchor="middle" dominant-baseline="central">architecture</text>
+
+<rect x="193" y="303" width="130" height="44" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<text class="th-gray" x="258" y="319" text-anchor="middle" dominant-baseline="central">Temporal</text>
+<text class="ts-gray" x="258" y="335" text-anchor="middle" dominant-baseline="central">association</text>
+
+<rect x="358" y="303" width="130" height="44" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<text class="th-gray" x="423" y="319" text-anchor="middle" dominant-baseline="central">No many-to-</text>
+<text class="ts-gray" x="423" y="335" text-anchor="middle" dominant-baseline="central">many joins</text>
+
+<rect x="523" y="303" width="130" height="44" rx="6" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<text class="th-gray" x="588" y="319" text-anchor="middle" dominant-baseline="central">Domain</text>
+<text class="ts-gray" x="588" y="335" text-anchor="middle" dominant-baseline="central">separation</text>
+
+<!-- ─── LEGEND ────────────────────────────────────────────────── -->
+<line x1="28" y1="360" x2="652" y2="360" class="sep"/>
+
+<rect x="28" y="370" width="12" height="12" rx="2" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+<text class="ts-gray" x="46" y="380" text-anchor="start">Operational</text>
+
+<rect x="138" y="370" width="12" height="12" rx="2" fill="#FAEEDA" stroke="#BA7517" stroke-width="0.5"/>
+<text class="ts-gray" x="156" y="380" text-anchor="start">Conversion</text>
+
+<rect x="248" y="370" width="12" height="12" rx="2" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
+<text class="ts-gray" x="266" y="380" text-anchor="start">Financial</text>
+
+<text class="ts-gray" x="652" y="380" text-anchor="end">Paulo Potter Marchi</text>
+</svg>
